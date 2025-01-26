@@ -14,7 +14,7 @@ Setup and Installation
 Clone the Repository
 bash
 Copy
-git clone https://github.com/yourusername/book-management-system.git
+git clone https://github.com/bisesh7/book-management-system.git
 cd book-management-system
 Database Setup
 Ensure MySQL is installed and running on your machine. Execute the following SQL commands to create the necessary database and user:
