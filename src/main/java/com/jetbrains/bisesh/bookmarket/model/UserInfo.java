@@ -1,5 +1,6 @@
 package com.jetbrains.bisesh.bookmarket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class UserInfo {
     private int id;
     private String username;
     private String email;
+    @JsonIgnore
     private String password;
     private String roles;
 }

@@ -30,7 +30,7 @@ public class UserInfoService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 
-    public String addUser(UserInfo userInfo) {
+    public UserInfo addUser(UserInfo userInfo) {
         repository.findByEmail(userInfo.getEmail())
             .ifPresent(existingUser -> {
                 throw new DataIntegrityViolationException("User already exists with email: " + userInfo.getEmail());
@@ -38,7 +38,7 @@ public class UserInfoService implements UserDetailsService {
 
         // Encode password before saving the user
         userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        repository.save(userInfo);
-        return "User Added Successfully";
+        UserInfo savedUser = repository.save(userInfo);
+        return savedUser;
     }
 }

@@ -31,16 +31,16 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> addNewUser(@RequestBody UserInfo userInfo) {
+    public ResponseEntity<?> addNewUser(@RequestBody UserInfo userInfo) {
         try {
-            String result = service.addUser(userInfo);
-            return ResponseEntity.ok(result); // User successfully added
+            UserInfo savedUser = service.addUser(userInfo);
+            return ResponseEntity.ok(savedUser); // User successfully added
         } catch (DataIntegrityViolationException e) {
             // Catching exception if user already exists or any other data integrity issues
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists or data integrity violation.");
         } catch (Exception e) {
             // General exception handling
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
         }
     }
 
@@ -56,6 +56,7 @@ public class UserController {
                 Map<String, String> tokenResponse = new HashMap<>();
                 tokenResponse.put("token", token);
                 tokenResponse.put("tokenType", "Bearer");
+                tokenResponse.put("username", authRequest.getUsername());
                 return ResponseEntity.ok(tokenResponse);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
