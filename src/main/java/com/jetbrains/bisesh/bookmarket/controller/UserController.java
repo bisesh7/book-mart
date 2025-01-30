@@ -34,12 +34,10 @@ public class UserController {
     public ResponseEntity<?> addNewUser(@RequestBody UserInfo userInfo) {
         try {
             UserInfo savedUser = service.addUser(userInfo);
-            return ResponseEntity.ok(savedUser); // User successfully added
+            return ResponseEntity.ok(savedUser);
         } catch (DataIntegrityViolationException e) {
-            // Catching exception if user already exists or any other data integrity issues
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists or data integrity violation.");
         } catch (Exception e) {
-            // General exception handling
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
         }
     }

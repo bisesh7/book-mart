@@ -30,7 +30,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserInfoService(); // Ensure UserInfoService implements UserDetailsService
+        return new UserInfoService();
     }
 
     @Bean
@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
                 )
                 .authenticationProvider(authenticationProvider()) // Custom authentication provider
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

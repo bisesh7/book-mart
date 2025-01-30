@@ -43,7 +43,7 @@ public class BookController {
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         return bookService.findBookById(id)
                 .map(existingBook -> {
-                    book.setId(id); // Ensure the book's ID is not altered.
+                    book.setId(id);
                     Book updatedBook = bookService.saveBook(book);
                     return ResponseEntity.ok(updatedBook);
                 })
